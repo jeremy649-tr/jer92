@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉 Feliz Cumpleaños Nat 🎂</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: radial-gradient(#000428, #004e92);
+    overflow: hidden;
+    height: 100vh;
+    font-family: 'Comic Sans MS', cursive;
+    color: white;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin-top: 50px;
+    text-shadow: 0 0 20px #fff, 0 0 40px #f0f, 0 0 60px #0ff;
+    animation: colores 3s infinite alternate;
+  }
+
+  @keyframes colores {
+    0% { color: #0ff; }
+    50% { color: #ff00ff; }
+    100% { color: #ffff00; }
+  }
+
+  .cake {
+    position: relative;
+    margin: 20px auto 30px auto;
+    width: 180px;
+    animation: flotar 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
+  }
+
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .cake img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    animation: brillo 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes brillo {
+    from { filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+    to { filter: drop-shadow(0 0 35px rgba(255,255,200,0.9)); }
+  }
+
+  .btn-carta {
+    background: #ff1493;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.2em;
+    box-shadow: 0 0 15px #ff69b4;
+    animation: pulse 1.5s infinite;
+    margin: 10px;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px #ff69b4; }
+    50% { transform: scale(1.1); box-shadow: 0 0 25px #fff; }
+    100% { transform: scale(1); box-shadow: 0 0 15px #ff69b4; }
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+  }
+
+  .modal-content {
+    background: white;
+    color: black;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    animation: aparecer 0.5s ease;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .cerrar {
+    position: absolute;
+    top: 10px; right: 15px;
+    cursor: pointer;
+    font-size: 1.3em;
+    color: red;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0; left: 0;
+    z-index: -1;
+  }
+
+  #contenido {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease;
+  }
+
+  #inicio {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(#000428, #004e92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 20;
+  }
+
+  #inicio button {
+    background: #ff1493;
+    color: white;
+    font-size: 1.5em;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 20px #ff69b4;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+  }
+</style>
+</head>
+<body>
+
+  <div id="inicio">
+    <button id="btnIniciar">🎁 Ver sorpresa </button>
+  </div>
+
+  <div id="contenido">
+    <canvas id="fireworks"></canvas>
+    <h1>🎉 Feliz Cumpleaños Nat 🎉</h1>
+
+    <div class="cake">
+      <img src="tor.png" alt="Pastel de cumpleaños" onerror="this.src='https://i.imgur.com/5KQm8vh.png'">
+    </div>
+
+    <button class="btn-carta" id="abrirCarta">💌 Lee mi carta</button>
+    <button class="btn-carta" id="btnMusica">⏸️ Pausar música</button>
+
+    <audio id="musica" loop>
+      <source src="cpl.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
+    </audio>
+
+    <div class="modal" id="modalCarta">
+      <div class="modal-content">
+        <span class="cerrar" id="cerrarCarta">&times;</span>
+        <h2>💖 Para ti 💖</h2>
+        <p>En este día tan especial hermanita hermosa quiero recordarte lo increíble que eres para mi sabes que 
+          eres mi todo que siempre estare contigo en las buenas y malas se que no puedo regalarte algo material
+          pero quiero hacerte este relago virtual con todo mi caorazon en este dia me encargare que sea muy especial 
+          para ti porque Tu sonrisa ilumina cada momento y tu corazón bondadoso toca la vida de todos por eso y por 
+          muchas cosas te mereses todo en este mundo sigues creciendo 22 años a tu lado y por mas siempre te protegere 
+          porque eres la princesa de la casa tkm hermanita hermosa.
+        💕 ¡Feliz cumpleaños!🎂💖</p>
+      </div>
+    </div>
+  </div>
+
+    <!-- 🎉 Confeti (mejora 7) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+  <script>
+    // 🎆 Fuegos artificiales
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Firework {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height;
+        this.targetY = Math.random() * canvas.height / 2;
+        this.color = `hsl(${Math.random() * 360},100%,60%)`;
+        this.size = 3;
+        this.velY = Math.random() * 3 + 2;
+      }
+      update() { this.y -= this.velY; }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    let fireworks = [];
+    function animate() {
+      ctx.fillStyle = "rgba(0,0,0,0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.05) fireworks.push(new Firework());
+      fireworks.forEach((f, i) => {
+        f.update(); f.draw();
+        if (f.y < f.targetY) fireworks.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 🎊 Confeti lanzado desde abajo
+        // 💌 Carta modal + confeti
+    const modal = document.getElementById('modalCarta');
+    const abrir = document.getElementById('abrirCarta');
+    const cerrar = document.getElementById('cerrarCarta');
+
+    abrir.onclick = () => {
+      modal.style.display = 'block';
+      // 🎉 Lanza confeti al abrir la carta (mejora 7)
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.8 }
+      });
+    };
+
+    cerrar.onclick = () => modal.style.display = 'none';
+    window.onclick = e => { if (e.target == modal) modal.style.display = 'none'; };
+    
+    // 🎶 Música e inicio
+    const musica = document.getElementById('musica');
+    const btnMusica = document.getElementById('btnMusica');
+    const inicio = document.getElementById('inicio');
+    const contenido = document.getElementById('contenido');
+    const btnIniciar = document.getElementById('btnIniciar');
+    let reproduciendo = false;
+
+    btnIniciar.onclick = () => {
+      musica.play();
+      inicio.style.opacity = '0';
+      setTimeout(() => {
+        inicio.style.display = 'none';
+        contenido.style.opacity = '1';
+        contenido.style.pointerEvents = 'auto';
+      }, 1000);
+      btnMusica.textContent = "⏸️ Pausar música";
+      reproduciendo = true;
+    };
+
+    btnMusica.onclick = () => {
+      if (!reproduciendo) {
+        musica.play();
+        btnMusica.textContent = "⏸️ Pausar música";
+        reproduciendo = true;
+      } else {
+        musica.pause();
+        btnMusica.textContent = "🎶 Reproducir música";
+        reproduciendo = false;
+      }
+    };
+  </script>
+</body>
+</html>
